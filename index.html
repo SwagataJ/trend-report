@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fashion Trend Report</title>
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --surface2: #242424;
+      --border: #2e2e2e;
+      --accent: #c8a96e;
+      --accent2: #8b6f47;
+      --text: #e8e8e8;
+      --text-muted: #888;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 40px 40px;
+    }
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .header-eyebrow {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .header h1 {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: #fff;
+    }
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .header-meta span {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .brand-pill::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* ── Layout ── */
+    .main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+
+    /* ── Section headings ── */
+    .section-title {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .section-heading {
+      font-size: 22px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .section-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    /* ── Global Trends ── */
+    .global-trends {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 48px;
+    }
+    .trend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .trend-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .trend-card-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .trend-bars { display: flex; flex-direction: column; gap: 8px; }
+    .trend-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .trend-bar-name {
+      font-size: 12px;
+      color: var(--text);
+      min-width: 90px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: capitalize;
+    }
+    .trend-bar-track {
+      flex: 1;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .trend-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+    .trend-bar-count {
+      font-size: 11px;
+      color: var(--text-muted);
+      min-width: 20px;
+      text-align: right;
+    }
+
+    /* ── Brand Section ── */
+    .brand-section {
+      margin-bottom: 60px;
+    }
+    .brand-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .brand-name {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: #fff;
+    }
+    .brand-stats {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .dominant-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: capitalize;
+      border: 1px solid transparent;
+    }
+    .chip-fit        { background: #1a2535; border-color: #1e3a5f; color: #7ab3e0; }
+    .chip-silhouette { background: #1f1a2e; border-color: #3d2a6b; color: #a89de0; }
+    .chip-fabric     { background: #1a2820; border-color: #1f5c38; color: #6dbd8c; }
+    .chip-prints     { background: #2a1a1a; border-color: #6b2a2a; color: #e08080; }
+    .chip-colors     { background: #2a2620; border-color: #5c4a1f; color: #c8a870; }
+    .chip-default    { background: #1e1e1e; border-color: var(--border); color: var(--text-muted); }
+
+    /* ── Product Grid ── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .product-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .product-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent2);
+    }
+    .product-image-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 130%;
+      background: var(--surface2);
+      overflow: hidden;
+    }
+    .product-image-wrap img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .product-card:hover .product-image-wrap img {
+      transform: scale(1.04);
+    }
+    .product-image-placeholder {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--border);
+      font-size: 40px;
+    }
+    .product-info {
+      padding: 14px;
+    }
+    .product-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .product-price {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .product-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .badge {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-transform: capitalize;
+      font-weight: 500;
+    }
+    .badge-fit        { background: #1a2535; color: #7ab3e0; }
+    .badge-silhouette { background: #1f1a2e; color: #a89de0; }
+    .badge-fabric     { background: #1a2820; color: #6dbd8c; }
+    .badge-print      { background: #2a1a1a; color: #e08080; }
+    .badge-color      { background: #2a2620; color: #c8a870; }
+    .badge-detail     { background: #1e1e1e; color: #aaa; }
+    .badge-length     { background: #1a1f2a; color: #88b4d8; }
+
+    .product-link {
+      display: block;
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      text-decoration: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .product-link:hover { color: var(--accent); }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer span { font-size: 12px; color: var(--text-muted); }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 48px 0;
+    }
+
+    @media (max-width: 600px) {
+      .main { padding: 20px; }
+      .header { padding: 32px 20px 28px; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-eyebrow">Fashion Intelligence Report</div>
+    <h1>Trend Analysis — SS26
+    </h1>
+    <div class="header-meta">
+      <span>Generated 2026-04-15</span>
+      
+        <span class="brand-pill">Zara</span>
+      
+        <span class="brand-pill">Bershka</span>
+      
+        <span class="brand-pill">H&amp;M</span>
+      
+      <span>14 products analysed</span>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- Global Trends -->
+  
+  <section class="global-trends">
+    <div class="section-title">Cross-Brand Intelligence</div>
+    <div class="section-heading">Dominant Trends This Season</div>
+    <div class="section-sub">Aggregated across all brands — ranked by frequency</div>
+    <div class="trend-grid">
+      
+      
+        
+          
+          <div class="trend-card">
+            <div class="trend-card-label">fit</div>
+            <div class="trend-bars">
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="regular">regular</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 100.0%"></div>
+                </div>
+                <span class="trend-bar-count">7</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="relaxed">relaxed</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 71.0%"></div>
+                </div>
+                <span class="trend-bar-count">5</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="slim">slim</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 29.0%"></div>
+                </div>
+                <span class="trend-bar-count">2</span>
+              </div>
+              
+            </div>
+          </div>
+        
+      
+        
+          
+          <div class="trend-card">
+            <div class="trend-card-label">silhouette</div>
+            <div class="trend-bars">
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="flared">flared</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 100.0%"></div>
+                </div>
+                <span class="trend-bar-count">4</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="straight">straight</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 75.0%"></div>
+                </div>
+                <span class="trend-bar-count">3</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="wide leg">wide leg</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 50.0%"></div>
+                </div>
+                <span class="trend-bar-count">2</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="boxy">boxy</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 25.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="wide-leg">wide-leg</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 25.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="a-line">a-line</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 25.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="wrap">wrap</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 25.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+            </div>
+          </div>
+        
+      
+        
+          
+          <div class="trend-card">
+            <div class="trend-card-label">fabric</div>
+            <div class="trend-bars">
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="denim">denim</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 100.0%"></div>
+                </div>
+                <span class="trend-bar-count">3</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="linen">linen</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 100.0%"></div>
+                </div>
+                <span class="trend-bar-count">3</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="polyester">polyester</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 67.0%"></div>
+                </div>
+                <span class="trend-bar-count">2</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="rustic">rustic</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 67.0%"></div>
+                </div>
+                <span class="trend-bar-count">2</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="unknown">unknown</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 67.0%"></div>
+                </div>
+                <span class="trend-bar-count">2</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="viscose">viscose</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 33.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="cotton">cotton</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 33.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+            </div>
+          </div>
+        
+      
+        
+          
+          <div class="trend-card">
+            <div class="trend-card-label">length</div>
+            <div class="trend-bars">
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="midi">midi</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 100.0%"></div>
+                </div>
+                <span class="trend-bar-count">7</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="cropped">cropped</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 57.0%"></div>
+                </div>
+                <span class="trend-bar-count">4</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="full">full</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 29.0%"></div>
+                </div>
+                <span class="trend-bar-count">2</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="maxi">maxi</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 14.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+            </div>
+          </div>
+        
+      
+        
+          
+          <div class="trend-card">
+            <div class="trend-card-label">neckline</div>
+            <div class="trend-bars">
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="straight">straight</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 100.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="round">round</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 100.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+            </div>
+          </div>
+        
+      
+        
+          
+          <div class="trend-card">
+            <div class="trend-card-label">sleeve style</div>
+            <div class="trend-bars">
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="sleeveless">sleeveless</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 100.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="short">short</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 100.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+            </div>
+          </div>
+        
+      
+        
+          
+          <div class="trend-card">
+            <div class="trend-card-label">prints patterns</div>
+            <div class="trend-bars">
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="striped">striped</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 100.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="printed">printed</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 100.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="floral">floral</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 100.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+            </div>
+          </div>
+        
+      
+        
+          
+          <div class="trend-card">
+            <div class="trend-card-label">colors</div>
+            <div class="trend-bars">
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="white">white</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 100.0%"></div>
+                </div>
+                <span class="trend-bar-count">3</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="light blue">light blue</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 67.0%"></div>
+                </div>
+                <span class="trend-bar-count">2</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="black">black</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 67.0%"></div>
+                </div>
+                <span class="trend-bar-count">2</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="ecru">ecru</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 33.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="khaki">khaki</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 33.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="caramel">caramel</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 33.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="striped">striped</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 33.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="blue">blue</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 33.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="off white">off white</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 33.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="brown">brown</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 33.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+            </div>
+          </div>
+        
+      
+        
+          
+          <div class="trend-card">
+            <div class="trend-card-label">details</div>
+            <div class="trend-bars">
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="drawstring">drawstring</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 100.0%"></div>
+                </div>
+                <span class="trend-bar-count">2</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="ruffles">ruffles</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 100.0%"></div>
+                </div>
+                <span class="trend-bar-count">2</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="lace trim">lace trim</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 50.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="buttons">buttons</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 50.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="hidden zip">hidden zip</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 50.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="double waist">double waist</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 50.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="crossover waist">crossover waist</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 50.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="ties">ties</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 50.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="ruched">ruched</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 50.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="elasticized waistband">elasticized waistband</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: 50.0%"></div>
+                </div>
+                <span class="trend-bar-count">1</span>
+              </div>
+              
+            </div>
+          </div>
+        
+      
+    </div>
+  </section>
+  
+
+  <!-- Per-Brand Sections -->
+  
+  <section class="brand-section">
+    <div class="brand-header">
+      <div>
+        <div class="brand-name">Zara</div>
+        <div class="brand-stats">
+          4 products · zara.com · 2026-04-15
+        </div>
+      </div>
+    </div>
+
+    <!-- Dominant trend chips -->
+    
+    <div class="dominant-chips">
+      
+        
+        
+        <span class="chip chip-fit">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">fit</span>
+          slim
+        </span>
+      
+        
+        
+        <span class="chip chip-silhouette">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">silhouette</span>
+          wide leg
+        </span>
+      
+        
+        
+        <span class="chip chip-fabric">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">fabric</span>
+          polyester
+        </span>
+      
+        
+        
+        <span class="chip chip-default">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">length</span>
+          full
+        </span>
+      
+        
+        
+        <span class="chip chip-default">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">neckline</span>
+          straight
+        </span>
+      
+        
+        
+        <span class="chip chip-default">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">sleeve style</span>
+          sleeveless
+        </span>
+      
+        
+        
+        <span class="chip chip-prints">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">prints patterns</span>
+          striped
+        </span>
+      
+        
+        
+        <span class="chip chip-colors">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">colors</span>
+          ecru
+        </span>
+      
+        
+        
+        <span class="chip chip-default">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">details</span>
+          lace trim
+        </span>
+      
+    </div>
+    
+
+    <!-- Product Grid -->
+    
+    <div class="product-grid">
+      
+      <div class="product-card">
+        <div class="product-image-wrap">
+          
+            <img src="https://static.zara.net/assets/public/5c7c/0322/2d2c4a25b7ab/22fadeeba411/05344115712-p/05344115712-p.jpg?ts=1774010181554&amp;w=560" alt="SATIN LACE SLIP DRESS" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="product-image-placeholder" style="display:none;">▦</div>
+          
+        </div>
+        <div class="product-info">
+          <div class="product-name">SATIN LACE SLIP DRESS</div>
+          
+            <div class="product-price">$129.00</div>
+          
+          <div class="product-badges">
+            
+              <span class="badge badge-fit">slim</span>
+            
+            
+              <span class="badge badge-silhouette">straight</span>
+            
+            
+              <span class="badge badge-fabric">viscose</span>
+            
+            
+              <span class="badge badge-length">midi</span>
+            
+            
+            
+              <span class="badge badge-color">ecru</span>
+            
+            
+              <span class="badge badge-detail">lace trim</span>
+            
+              <span class="badge badge-detail">buttons</span>
+            
+          </div>
+          <a href="https://www.zara.com/us/en/satin-lace-slip-dress-p05344115.html" target="_blank" rel="noopener" class="product-link">
+            https://www.zara.com/us/en/satin-lace-slip-dress-…
+          </a>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-image-wrap">
+          
+            <img src="https://static.zara.net/assets/public/2ab6/11bf/6c964dc784aa/23de87fa8448/02335059505-p/02335059505-p.jpg?ts=1769006849033&amp;w=560" alt="SHORT SLEEVE CROPPED TOP" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="product-image-placeholder" style="display:none;">▦</div>
+          
+        </div>
+        <div class="product-info">
+          <div class="product-name">SHORT SLEEVE CROPPED TOP</div>
+          
+            <div class="product-price">$12.90</div>
+          
+          <div class="product-badges">
+            
+              <span class="badge badge-fit">slim</span>
+            
+            
+              <span class="badge badge-silhouette">boxy</span>
+            
+            
+              <span class="badge badge-fabric">cotton</span>
+            
+            
+              <span class="badge badge-length">cropped</span>
+            
+            
+            
+              <span class="badge badge-color">khaki</span>
+            
+            
+          </div>
+          <a href="https://www.zara.com/us/en/short-sleeve-cropped-top-p02335299.html" target="_blank" rel="noopener" class="product-link">
+            https://www.zara.com/us/en/short-sleeve-cropped-t…
+          </a>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-image-wrap">
+          
+            <img src="https://static.zara.net/assets/public/7c59/b1be/bd404e47871f/88b39a84be2e/04043041732-p/04043041732-p.jpg?ts=1767958702975&amp;w=560" alt="VOLUME WIDE LEG PANTS ZW COLLECTION" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="product-image-placeholder" style="display:none;">▦</div>
+          
+        </div>
+        <div class="product-info">
+          <div class="product-name">VOLUME WIDE LEG PANTS ZW COLLECTION</div>
+          
+            <div class="product-price">$79.90</div>
+          
+          <div class="product-badges">
+            
+              <span class="badge badge-fit">relaxed</span>
+            
+            
+              <span class="badge badge-silhouette">wide leg</span>
+            
+            
+              <span class="badge badge-fabric">polyester</span>
+            
+            
+              <span class="badge badge-length">full</span>
+            
+            
+            
+              <span class="badge badge-color">caramel</span>
+            
+            
+              <span class="badge badge-detail">hidden zip</span>
+            
+          </div>
+          <a href="https://www.zara.com/us/en/volume-wide-leg-pants-zw-collection-p04043041.html" target="_blank" rel="noopener" class="product-link">
+            https://www.zara.com/us/en/volume-wide-leg-pants-…
+          </a>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-image-wrap">
+          
+            <img src="https://static.zara.net/assets/public/7187/5adc/d34f46fdbc4e/1a6693a8141a/01608125105-p/01608125105-p.jpg?ts=1755164039779&amp;w=560" alt="DOUBLE WAIST WIDE LEG PANTS" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="product-image-placeholder" style="display:none;">▦</div>
+          
+        </div>
+        <div class="product-info">
+          <div class="product-name">DOUBLE WAIST WIDE LEG PANTS</div>
+          
+            <div class="product-price">$59.90</div>
+          
+          <div class="product-badges">
+            
+              <span class="badge badge-fit">relaxed</span>
+            
+            
+              <span class="badge badge-silhouette">wide leg</span>
+            
+            
+              <span class="badge badge-fabric">polyester</span>
+            
+            
+              <span class="badge badge-length">full</span>
+            
+            
+              <span class="badge badge-print">striped</span>
+            
+            
+              <span class="badge badge-color">striped</span>
+            
+            
+              <span class="badge badge-detail">double waist</span>
+            
+              <span class="badge badge-detail">drawstring</span>
+            
+          </div>
+          <a href="https://www.zara.com/us/en/double-waist-wide-leg-pants-p01608225.html" target="_blank" rel="noopener" class="product-link">
+            https://www.zara.com/us/en/double-waist-wide-leg-…
+          </a>
+        </div>
+      </div>
+      
+    </div>
+    
+  </section>
+
+  <div class="divider"></div>
+  
+  <section class="brand-section">
+    <div class="brand-header">
+      <div>
+        <div class="brand-name">Bershka</div>
+        <div class="brand-stats">
+          7 products · bershka.com · 2026-04-15
+        </div>
+      </div>
+    </div>
+
+    <!-- Dominant trend chips -->
+    
+    <div class="dominant-chips">
+      
+        
+        
+        <span class="chip chip-fit">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">fit</span>
+          regular
+        </span>
+      
+        
+        
+        <span class="chip chip-silhouette">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">silhouette</span>
+          flared
+        </span>
+      
+        
+        
+        <span class="chip chip-fabric">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">fabric</span>
+          denim
+        </span>
+      
+        
+        
+        <span class="chip chip-default">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">length</span>
+          midi
+        </span>
+      
+        
+        
+        <span class="chip chip-prints">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">prints patterns</span>
+          printed
+        </span>
+      
+        
+        
+        <span class="chip chip-colors">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">colors</span>
+          light blue
+        </span>
+      
+        
+        
+        <span class="chip chip-default">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">details</span>
+          ruffles
+        </span>
+      
+    </div>
+    
+
+    <!-- Product Grid -->
+    
+    <div class="product-grid">
+      
+      <div class="product-card">
+        <div class="product-image-wrap">
+          
+            <img src="https://static.bershka.net/assets/public/4e36/5d7f/81ab41a3b125/524dfb65f382/05035797428-p/05035797428-p.jpg?ts=1773936708665&amp;w=850&amp;f=auto" alt="Low-rise baggy flared jeans" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="product-image-placeholder" style="display:none;">▦</div>
+          
+        </div>
+        <div class="product-info">
+          <div class="product-name">Low-rise baggy flared jeans</div>
+          
+          <div class="product-badges">
+            
+              <span class="badge badge-fit">relaxed</span>
+            
+            
+              <span class="badge badge-silhouette">flared</span>
+            
+            
+              <span class="badge badge-fabric">denim</span>
+            
+            
+              <span class="badge badge-length">cropped</span>
+            
+            
+            
+              <span class="badge badge-color">light blue</span>
+            
+            
+          </div>
+          <a href="https://www.bershka.com/am/en/flared-baggy-jeans-c0p209092664.html?colorId=428" target="_blank" rel="noopener" class="product-link">
+            https://www.bershka.com/am/en/flared-baggy-jeans-…
+          </a>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-image-wrap">
+          
+            <img src="https://static.bershka.net/assets/public/f7e5/d3ae/a5044a34ade2/2debc8a68670/05012352428-03-p/05012352428-03-p.jpg?ts=1767019193275&amp;w=850&amp;f=auto" alt="Low-rise boyfriend jeans" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="product-image-placeholder" style="display:none;">▦</div>
+          
+        </div>
+        <div class="product-info">
+          <div class="product-name">Low-rise boyfriend jeans</div>
+          
+          <div class="product-badges">
+            
+              <span class="badge badge-fit">relaxed</span>
+            
+            
+              <span class="badge badge-silhouette">straight</span>
+            
+            
+              <span class="badge badge-fabric">denim</span>
+            
+            
+              <span class="badge badge-length">cropped</span>
+            
+            
+            
+              <span class="badge badge-color">light blue</span>
+            
+            
+          </div>
+          <a href="https://www.bershka.com/us/low-rise-boyfriend-jeans-c0p209484699.html" target="_blank" rel="noopener" class="product-link">
+            https://www.bershka.com/us/low-rise-boyfriend-jea…
+          </a>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-image-wrap">
+          
+            <img src="https://static.bershka.net/assets/public/2d52/64c1/96a445f2a636/309af17e1e8f/05025534400-03-a2d/05025534400-03-a2d.jpg?ts=1749565434129&amp;w=850&amp;f=auto" alt="High-waist crossover wide-leg jeans" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="product-image-placeholder" style="display:none;">▦</div>
+          
+        </div>
+        <div class="product-info">
+          <div class="product-name">High-waist crossover wide-leg jeans</div>
+          
+          <div class="product-badges">
+            
+              <span class="badge badge-fit">relaxed</span>
+            
+            
+              <span class="badge badge-silhouette">wide-leg</span>
+            
+            
+              <span class="badge badge-fabric">denim</span>
+            
+            
+              <span class="badge badge-length">cropped</span>
+            
+            
+            
+              <span class="badge badge-color">blue</span>
+            
+            
+              <span class="badge badge-detail">crossover waist</span>
+            
+          </div>
+          <a href="https://www.bershka.com/jo/wide-leg-jeans-with-crossover-waist-c0p209441526.html" target="_blank" rel="noopener" class="product-link">
+            https://www.bershka.com/jo/wide-leg-jeans-with-cr…
+          </a>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-image-wrap">
+          
+            <img src="https://static.bershka.net/assets/public/10a8/43af/e71e49ce9106/4511d78c2a5f/01100207251-p/01100207251-p.jpg?ts=1773225803606&amp;w=850&amp;f=auto" alt="Rustic midi skirt with ruffles" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="product-image-placeholder" style="display:none;">▦</div>
+          
+        </div>
+        <div class="product-info">
+          <div class="product-name">Rustic midi skirt with ruffles</div>
+          
+          <div class="product-badges">
+            
+              <span class="badge badge-fit">regular</span>
+            
+            
+              <span class="badge badge-silhouette">flared</span>
+            
+            
+              <span class="badge badge-fabric">rustic</span>
+            
+            
+              <span class="badge badge-length">midi</span>
+            
+            
+            
+              <span class="badge badge-color">off white</span>
+            
+            
+              <span class="badge badge-detail">ruffles</span>
+            
+          </div>
+          <a href="https://www.bershka.com/us/rustic-midi-skirt-with-ruffles-c0p205577766.html" target="_blank" rel="noopener" class="product-link">
+            https://www.bershka.com/us/rustic-midi-skirt-with…
+          </a>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-image-wrap">
+          
+            <img src="https://static.bershka.net/assets/public/3d14/3bbc/9fed4a2fad3c/cfab6af28a2c/01425172700-p/01425172700-p.jpg?ts=1768465067501&amp;w=850&amp;f=auto" alt="Printed midi skirt with ties" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="product-image-placeholder" style="display:none;">▦</div>
+          
+        </div>
+        <div class="product-info">
+          <div class="product-name">Printed midi skirt with ties</div>
+          
+          <div class="product-badges">
+            
+              <span class="badge badge-fit">regular</span>
+            
+            
+              <span class="badge badge-silhouette">flared</span>
+            
+            
+              <span class="badge badge-fabric">unknown</span>
+            
+            
+              <span class="badge badge-length">midi</span>
+            
+            
+              <span class="badge badge-print">printed</span>
+            
+            
+              <span class="badge badge-color">brown</span>
+            
+            
+              <span class="badge badge-detail">ties</span>
+            
+          </div>
+          <a href="https://www.bershka.com/us/printed-midi-skirt-with-ties-c0p210697748.html" target="_blank" rel="noopener" class="product-link">
+            https://www.bershka.com/us/printed-midi-skirt-wit…
+          </a>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-image-wrap">
+          
+            <img src="https://static.bershka.net/assets/public/8947/4e1b/f73b4ec29fe3/007240a2a1f9/01116662800-a3o/01116662800-a3o.jpg?ts=1772095438554&amp;w=850&amp;f=auto" alt="Ruched midi skirt" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="product-image-placeholder" style="display:none;">▦</div>
+          
+        </div>
+        <div class="product-info">
+          <div class="product-name">Ruched midi skirt</div>
+          
+          <div class="product-badges">
+            
+              <span class="badge badge-fit">regular</span>
+            
+            
+              <span class="badge badge-silhouette">straight</span>
+            
+            
+              <span class="badge badge-fabric">unknown</span>
+            
+            
+              <span class="badge badge-length">midi</span>
+            
+            
+            
+              <span class="badge badge-color">black</span>
+            
+            
+              <span class="badge badge-detail">ruched</span>
+            
+          </div>
+          <a href="https://www.bershka.com/am/en/ruched-midi-skirt-c0p208793040.html" target="_blank" rel="noopener" class="product-link">
+            https://www.bershka.com/am/en/ruched-midi-skirt-c…
+          </a>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-image-wrap">
+          
+            <img src="https://static.bershka.net/assets/public/553b/b7db/cb0f4c28a115/cf32a1de990c/01100207200-p/01100207200-p.jpg?ts=1773393047169&amp;w=850&amp;f=auto" alt="Rustic ruffled midi skirt" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="product-image-placeholder" style="display:none;">▦</div>
+          
+        </div>
+        <div class="product-info">
+          <div class="product-name">Rustic ruffled midi skirt</div>
+          
+          <div class="product-badges">
+            
+              <span class="badge badge-fit">regular</span>
+            
+            
+              <span class="badge badge-silhouette">flared</span>
+            
+            
+              <span class="badge badge-fabric">rustic</span>
+            
+            
+              <span class="badge badge-length">midi</span>
+            
+            
+            
+              <span class="badge badge-color">dark grey</span>
+            
+            
+              <span class="badge badge-detail">ruffles</span>
+            
+          </div>
+          <a href="https://www.bershka.com/am/en/rustic-ruffled-midi-skirt-c0p207684738.html" target="_blank" rel="noopener" class="product-link">
+            https://www.bershka.com/am/en/rustic-ruffled-midi…
+          </a>
+        </div>
+      </div>
+      
+    </div>
+    
+  </section>
+
+  <div class="divider"></div>
+  
+  <section class="brand-section">
+    <div class="brand-header">
+      <div>
+        <div class="brand-name">H&amp;M</div>
+        <div class="brand-stats">
+          3 products · hm.com · 2026-04-15
+        </div>
+      </div>
+    </div>
+
+    <!-- Dominant trend chips -->
+    
+    <div class="dominant-chips">
+      
+        
+        
+        <span class="chip chip-fit">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">fit</span>
+          regular
+        </span>
+      
+        
+        
+        <span class="chip chip-silhouette">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">silhouette</span>
+          a-line
+        </span>
+      
+        
+        
+        <span class="chip chip-fabric">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">fabric</span>
+          linen
+        </span>
+      
+        
+        
+        <span class="chip chip-default">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">length</span>
+          midi
+        </span>
+      
+        
+        
+        <span class="chip chip-prints">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">prints patterns</span>
+          floral
+        </span>
+      
+        
+        
+        <span class="chip chip-colors">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">colors</span>
+          white
+        </span>
+      
+        
+        
+        <span class="chip chip-default">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">details</span>
+          drawstring
+        </span>
+      
+    </div>
+    
+
+    <!-- Product Grid -->
+    
+    <div class="product-grid">
+      
+      <div class="product-card">
+        <div class="product-image-wrap">
+          
+            <img src="https://image.hm.com/assets/hm/b2/a8/b2a8248ea600e749303714d6e1c4a8ddf804117f.jpg?imwidth=1260" alt="Linen-Blend Skirt" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="product-image-placeholder" style="display:none;">▦</div>
+          
+        </div>
+        <div class="product-info">
+          <div class="product-name">Linen-Blend Skirt</div>
+          
+            <div class="product-price">$14.99</div>
+          
+          <div class="product-badges">
+            
+              <span class="badge badge-fit">regular</span>
+            
+            
+            
+              <span class="badge badge-fabric">linen</span>
+            
+            
+              <span class="badge badge-length">midi</span>
+            
+            
+            
+              <span class="badge badge-color">white</span>
+            
+            
+              <span class="badge badge-detail">drawstring</span>
+            
+          </div>
+          <a href="https://www2.hm.com/en_us/productpage.1285138001.html" target="_blank" rel="noopener" class="product-link">
+            https://www2.hm.com/en_us/productpage.1285138001.html
+          </a>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-image-wrap">
+          
+            <img src="https://image.hm.com/assets/hm/16/33/1633974851aa3767899ff01c413b90f85fa7989c.jpg?imwidth=1260" alt="Linen-blend Maxi Skirt" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="product-image-placeholder" style="display:none;">▦</div>
+          
+        </div>
+        <div class="product-info">
+          <div class="product-name">Linen-blend Maxi Skirt</div>
+          
+            <div class="product-price">$39.99</div>
+          
+          <div class="product-badges">
+            
+              <span class="badge badge-fit">regular</span>
+            
+            
+              <span class="badge badge-silhouette">A-line</span>
+            
+            
+              <span class="badge badge-fabric">linen</span>
+            
+            
+              <span class="badge badge-length">maxi</span>
+            
+            
+              <span class="badge badge-print">floral</span>
+            
+            
+              <span class="badge badge-color">black</span>
+            
+              <span class="badge badge-color">green</span>
+            
+            
+              <span class="badge badge-detail">elasticized waistband</span>
+            
+          </div>
+          <a href="https://www2.hm.com/en_us/productpage.1225776003.html" target="_blank" rel="noopener" class="product-link">
+            https://www2.hm.com/en_us/productpage.1225776003.html
+          </a>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-image-wrap">
+          
+            <img src="https://image.hm.com/assets/hm/49/2d/492d2a14f51ee83ab9557ddf507ad2f0d292ab27.jpg?imwidth=1260" alt="Linen-Blend Wrap Skirt" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="product-image-placeholder" style="display:none;">▦</div>
+          
+        </div>
+        <div class="product-info">
+          <div class="product-name">Linen-Blend Wrap Skirt</div>
+          
+            <div class="product-price">$44.99</div>
+          
+          <div class="product-badges">
+            
+              <span class="badge badge-fit">regular</span>
+            
+            
+              <span class="badge badge-silhouette">wrap</span>
+            
+            
+              <span class="badge badge-fabric">linen</span>
+            
+            
+              <span class="badge badge-length">midi</span>
+            
+            
+            
+              <span class="badge badge-color">white</span>
+            
+            
+              <span class="badge badge-detail">belt</span>
+            
+              <span class="badge badge-detail">wrapover</span>
+            
+          </div>
+          <a href="https://www2.hm.com/en_us/productpage.1280868001.html" target="_blank" rel="noopener" class="product-link">
+            https://www2.hm.com/en_us/productpage.1280868001.html
+          </a>
+        </div>
+      </div>
+      
+    </div>
+    
+  </section>
+
+  
+  
+
+</main>
+
+<footer class="footer">
+  <span>Fashion Trend Intelligence Agent · Powered by Firecrawl + GPT-4o</span>
+  <span>2026-04-15T19:38:31.708077+00:00</span>
+</footer>
+
+</body>
+</html>
