@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fashion Trend Report</title>
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --surface2: #242424;
+      --border: #2e2e2e;
+      --accent: #c8a96e;
+      --accent2: #8b6f47;
+      --text: #e8e8e8;
+      --text-muted: #888;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 40px 40px;
+    }
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .header-eyebrow {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .header h1 {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: #fff;
+    }
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .header-meta span {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .brand-pill::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* ── Layout ── */
+    .main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+
+    /* ── Section headings ── */
+    .section-title {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .section-heading {
+      font-size: 22px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .section-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    /* ── Global Trends ── */
+    .global-trends {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 48px;
+    }
+    .trend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .trend-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .trend-card-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .trend-bars { display: flex; flex-direction: column; gap: 8px; }
+    .trend-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .trend-bar-name {
+      font-size: 12px;
+      color: var(--text);
+      min-width: 90px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: capitalize;
+    }
+    .trend-bar-track {
+      flex: 1;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .trend-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+    .trend-bar-count {
+      font-size: 11px;
+      color: var(--text-muted);
+      min-width: 20px;
+      text-align: right;
+    }
+
+    /* ── Brand Section ── */
+    .brand-section {
+      margin-bottom: 60px;
+    }
+    .brand-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .brand-name {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: #fff;
+    }
+    .brand-stats {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .dominant-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: capitalize;
+      border: 1px solid transparent;
+    }
+    .chip-fit        { background: #1a2535; border-color: #1e3a5f; color: #7ab3e0; }
+    .chip-silhouette { background: #1f1a2e; border-color: #3d2a6b; color: #a89de0; }
+    .chip-fabric     { background: #1a2820; border-color: #1f5c38; color: #6dbd8c; }
+    .chip-prints     { background: #2a1a1a; border-color: #6b2a2a; color: #e08080; }
+    .chip-colors     { background: #2a2620; border-color: #5c4a1f; color: #c8a870; }
+    .chip-default    { background: #1e1e1e; border-color: var(--border); color: var(--text-muted); }
+
+    /* ── Product Grid ── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .product-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .product-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent2);
+    }
+    .product-image-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 130%;
+      background: var(--surface2);
+      overflow: hidden;
+    }
+    .product-image-wrap img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .product-card:hover .product-image-wrap img {
+      transform: scale(1.04);
+    }
+    .product-image-placeholder {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--border);
+      font-size: 40px;
+    }
+    .product-info {
+      padding: 14px;
+    }
+    .product-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .product-price {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .product-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .badge {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-transform: capitalize;
+      font-weight: 500;
+    }
+    .badge-fit        { background: #1a2535; color: #7ab3e0; }
+    .badge-silhouette { background: #1f1a2e; color: #a89de0; }
+    .badge-fabric     { background: #1a2820; color: #6dbd8c; }
+    .badge-print      { background: #2a1a1a; color: #e08080; }
+    .badge-color      { background: #2a2620; color: #c8a870; }
+    .badge-detail     { background: #1e1e1e; color: #aaa; }
+    .badge-length     { background: #1a1f2a; color: #88b4d8; }
+
+    .product-link {
+      display: block;
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      text-decoration: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .product-link:hover { color: var(--accent); }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer span { font-size: 12px; color: var(--text-muted); }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 48px 0;
+    }
+
+    @media (max-width: 600px) {
+      .main { padding: 20px; }
+      .header { padding: 32px 20px 28px; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-eyebrow">Fashion Intelligence Report</div>
+    <h1>Trend Analysis — SS25</h1>
+    <div class="header-meta">
+      <span>Generated {{ report.generated_at[:10] }}</span>
+      {% for br in report.brand_reports %}
+        <span class="brand-pill">{{ br.brand_name }}</span>
+      {% endfor %}
+      <span>{{ report.brand_reports | map(attribute='products') | map('length') | sum }} products analysed</span>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- Global Trends -->
+  {% if report.cross_brand_trends %}
+  <section class="global-trends">
+    <div class="section-title">Cross-Brand Intelligence</div>
+    <div class="section-heading">Dominant Trends This Season</div>
+    <div class="section-sub">Aggregated across all brands — ranked by frequency</div>
+    <div class="trend-grid">
+      {% set max_counts = {} %}
+      {% for field, counts in report.cross_brand_trends.items() %}
+        {% if counts %}
+          {% set max_val = counts.values() | max %}
+          <div class="trend-card">
+            <div class="trend-card-label">{{ field | replace('_', ' ') }}</div>
+            <div class="trend-bars">
+              {% for val, count in counts.items() %}
+              <div class="trend-bar-row">
+                <span class="trend-bar-name" title="{{ val }}">{{ val }}</span>
+                <div class="trend-bar-track">
+                  <div class="trend-bar-fill" style="width: {{ (count / max_val * 100) | round }}%"></div>
+                </div>
+                <span class="trend-bar-count">{{ count }}</span>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- Per-Brand Sections -->
+  {% for brand_report in report.brand_reports %}
+  <section class="brand-section">
+    <div class="brand-header">
+      <div>
+        <div class="brand-name">{{ brand_report.brand_name }}</div>
+        <div class="brand-stats">
+          {{ brand_report.products | length }} products · {{ brand_report.domain }} · {{ brand_report.crawled_at[:10] }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Dominant trend chips -->
+    {% if brand_report.dominant_trends %}
+    <div class="dominant-chips">
+      {% for field, counts in brand_report.dominant_trends.items() %}
+        {% set top_val = counts.keys() | first %}
+        {% set chip_class = {
+          'fit': 'chip-fit',
+          'silhouette': 'chip-silhouette',
+          'fabric': 'chip-fabric',
+          'prints_patterns': 'chip-prints',
+          'colors': 'chip-colors'
+        }.get(field, 'chip-default') %}
+        <span class="chip {{ chip_class }}">
+          <span style="opacity:0.6;font-size:9px;text-transform:uppercase;letter-spacing:1px;">{{ field | replace('_',' ') }}</span>
+          {{ top_val }}
+        </span>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Product Grid -->
+    {% if brand_report.products %}
+    <div class="product-grid">
+      {% for product in brand_report.products %}
+      <div class="product-card">
+        <div class="product-image-wrap">
+          {% if product.image_urls %}
+            <img src="{{ product.image_urls[0] }}" alt="{{ product.product_name }}" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="product-image-placeholder" style="display:none;">▦</div>
+          {% else %}
+            <div class="product-image-placeholder">▦</div>
+          {% endif %}
+        </div>
+        <div class="product-info">
+          <div class="product-name">{{ product.product_name }}</div>
+          {% if product.price %}
+            <div class="product-price">{{ product.price }}</div>
+          {% endif %}
+          <div class="product-badges">
+            {% if product.trends.fit %}
+              <span class="badge badge-fit">{{ product.trends.fit }}</span>
+            {% endif %}
+            {% if product.trends.silhouette %}
+              <span class="badge badge-silhouette">{{ product.trends.silhouette }}</span>
+            {% endif %}
+            {% if product.trends.fabric %}
+              <span class="badge badge-fabric">{{ product.trends.fabric }}</span>
+            {% endif %}
+            {% if product.trends.length %}
+              <span class="badge badge-length">{{ product.trends.length }}</span>
+            {% endif %}
+            {% for p in product.trends.prints_patterns[:2] %}
+              <span class="badge badge-print">{{ p }}</span>
+            {% endfor %}
+            {% for c in product.trends.colors[:2] %}
+              <span class="badge badge-color">{{ c }}</span>
+            {% endfor %}
+            {% for d in product.trends.details[:2] %}
+              <span class="badge badge-detail">{{ d }}</span>
+            {% endfor %}
+          </div>
+          <a href="{{ product.url }}" target="_blank" rel="noopener" class="product-link">
+            {{ product.url | truncate(50, True, '…') }}
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p style="color: var(--text-muted); font-size: 14px;">No products extracted for this brand.</p>
+    {% endif %}
+  </section>
+
+  {% if not loop.last %}<div class="divider"></div>{% endif %}
+  {% endfor %}
+
+</main>
+
+<footer class="footer">
+  <span>Fashion Trend Intelligence Agent · Powered by Firecrawl + GPT-4o</span>
+  <span>{{ report.generated_at }}</span>
+</footer>
+
+</body>
+</html>
